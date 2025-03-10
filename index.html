@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/style/normalize.css" />
+    <link rel="stylesheet" href="./assets/style/style.scss" />
+    <title>To-Do List</title>
+  </head>
+  <body>
+    <h1 class="title">To-Do List</h1>
+    <form class="form">
+      <input
+        type="text"
+        name="taskInput"
+        id="taskInput"
+        class="form__input"
+        placeholder="Введите текст задачи"
+      />
+      <button class="form__btn">Добавить задачу</button>
+    </form>
+    <div class="tasks">
+      <h2 class="tasks__subtitle">Список задач</h2>
+      <ul class="tasks__list"></ul>
+      <p class="tasks__empty">Нет задач</p>
+      <button class="tasks__btn" disabled>Очистить список задач</button>
+    </div>
+  </body>
+</html>

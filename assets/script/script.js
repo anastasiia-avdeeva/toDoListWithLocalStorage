@@ -12,12 +12,9 @@ const taskClassNames = {
   checkedTaskClassName: "tasks__task-description--checked",
 };
 
-function toggleElemDisplayState(elem, displayType) {
-  elem.style.display = displayType;
-}
-
-function createTaskObj(taskDescpription) {
-  return { task: taskDescpription, done: false };
+function makeTaskListVisibile() {
+  toggleElemDisplayState(taskLst, "flex");
+  toggleElemDisplayState(emptyMsg, "none");
 }
 
 function createElemWithClass(tagName, className) {
@@ -38,27 +35,24 @@ function createTaskLI(taskObj) {
     "span",
     taskClassNames.taskDescriptionClassName
   );
-  taskDescpriptionElem.textContent = taskObj.task;
+  taskDescpriptionElem.textContent = taskObj.taskName;
 
   liElem.append(checkboxElem, taskDescpriptionElem);
   return liElem;
 }
 
-function updateTaskListVisibility() {
-  if (tasks.length === 0) {
-    toggleElemDisplayState(taskLst, "flex");
-    toggleElemDisplayState(emptyMsg, "none");
-  }
-}
-
 function renderTask(taskObj) {
   const taskElem = createTaskLI(taskObj);
   taskLst.append(taskElem);
+  if (taskObj.taskDone) {
+    markTaskElemDone(taskElem);
+  }
 }
 
-function updateLocalStorage(taskObj) {
-  tasks.push(taskObj);
-  window.localStorage.setItem("tasks", JSON.stringify(tasks));
+function renderAllTasks() {
+  for (let task of tasks) {
+    renderTask(task);
+  }
 }
 
 function disableOrEnableBtn(disable = true) {
@@ -67,26 +61,116 @@ function disableOrEnableBtn(disable = true) {
     : taskBtn.removeAttribute("disabled");
 }
 
+function renderFromLocalStorage() {
+  if (tasks.length === 0) {
+    makeEmptyMsgVisible();
+    console.log("local storage is empty");
+    return;
+  }
+
+  makeTaskListVisibile();
+  renderAllTasks();
+  disableOrEnableBtn(false);
+}
+
+document.addEventListener("DOMContentLoaded", renderFromLocalStorage);
+
+function toggleElemDisplayState(elem, displayType) {
+  elem.style.display = displayType;
+}
+
+function createTaskObj(taskDescpription) {
+  return { taskName: taskDescpription, taskDone: false };
+}
+
+function makeEmptyMsgVisible() {
+  toggleElemDisplayState(taskLst, "none");
+  toggleElemDisplayState(emptyMsg, "block");
+}
+
+function markTaskElemDone(taskElem) {
+  const checkboxElem = taskElem.querySelector(
+    "." + taskClassNames.checkboxClassName
+  );
+  const taskDescpriptionElem = taskElem.querySelector(
+    "." + taskClassNames.taskDescriptionClassName
+  );
+
+  checkboxElem.textContent = "\u2713";
+  taskDescpriptionElem.classList.add(taskClassNames.checkedTaskClassName);
+}
+
+function updateLocalStorage(taskObj) {
+  tasks.push(taskObj);
+  window.localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 function processInput(evt) {
   evt.preventDefault();
   const task = inputField.value.trim();
 
   if (!task) return;
 
-  updateTaskListVisibility();
+  if (tasks.length === 0) makeTaskListVisibile();
   const taskObj = createTaskObj(task);
   renderTask(taskObj);
-  disableOrEnableBtn();
+  disableOrEnableBtn(false);
   updateLocalStorage(taskObj);
   inputField.value = "";
 }
 
 form.addEventListener("submit", processInput);
 
-// console.log(JSON.parse(localStorage.getItem("tasks")));
-// localStorage.clear();
-
-function toggleTaskState() {
-  return;
+function toggleTick(listItemElem, taskIsDone) {
+  const checkbox = listItemElem.querySelector(
+    "." + taskClassNames.checkboxClassName
+  );
+  taskIsDone ? (checkbox.textContent = "\u2713") : (checkbox.textContent = "");
 }
-form.addEventListener("click", toggleTaskState);
+
+function markTaskObjDone(taskDescpription, taskIsDone) {
+  for (let task of tasks) {
+    if (task.taskName === taskDescpription) {
+      task.taskDone = taskIsDone;
+      break;
+    }
+  }
+  window.localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function toggleTaskState(event) {
+  const clickedTaskElem = event.target.closest(
+    `.${taskClassNames.taskClassName}`
+  );
+  if (!clickedTaskElem) return;
+
+  const taskDescpriptionElem = clickedTaskElem.querySelector(
+    `.${taskClassNames.taskDescriptionClassName}`
+  );
+  taskDescpriptionElem.classList.toggle(taskClassNames.checkedTaskClassName);
+
+  const taskIsDone = taskDescpriptionElem.classList.contains(
+    taskClassNames.checkedTaskClassName
+  );
+  toggleTick(clickedTaskElem, taskIsDone);
+
+  const taskDescription = taskDescpriptionElem.textContent;
+  markTaskObjDone(taskDescription, taskIsDone);
+}
+
+taskLst.addEventListener("click", toggleTaskState);
+
+function removeTasksFromDom() {
+  const taskElemsArr = taskLst.querySelectorAll(".tasks__task");
+  taskElemsArr.forEach((item) => item.remove());
+}
+
+function removeTasks() {
+  removeTasksFromDom();
+  tasks = [];
+  localStorage.removeItem("tasks");
+  makeEmptyMsgVisible();
+  disableOrEnableBtn();
+}
+
+taskBtn.addEventListener("click", removeTasks);

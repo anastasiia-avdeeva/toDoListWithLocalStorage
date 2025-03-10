@@ -86,7 +86,7 @@ body {
   font-size: 45px;
 }
 .tasks__list {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 10px;
 }
@@ -112,7 +112,4 @@ body {
 .tasks__empty {
   color: rgb(160, 156, 156);
   align-self: center;
-}
-.tasks__btn {
-  align-self: flex-end;
 }

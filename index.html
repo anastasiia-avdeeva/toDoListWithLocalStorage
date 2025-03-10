@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1 class="title">To Do List</h1>
-    <form class="form">
+    <form class="form" id="form">
       <input
         type="text"
         name="taskInput"
@@ -21,22 +21,23 @@
     </form>
     <div class="tasks">
       <h2 class="tasks__title">Мои задачи:</h2>
-      <ul class="tasks__list">
-        <li class="tasks__task">
+      <ul class="tasks__list" id="taskList">
+        <!-- <li class="tasks__task">
           <span class="tasks__task-checkbox"></span>
           <span class="tasks__task-description">testtest</span>
         </li>
         <li class="tasks__task">
           <span class="tasks__task-checkbox"></span>
-          <span class="tasks__task-description"
+          <span class="tasks__task-description tasks__task-description--checked"
             >проверить стираньо ао кпоатк оиака коаткоа оипак оиакам оиаокиа
             оаикоа проверить стираньо ао кпоатк оиака коаткоа оипак оиакам
             оиаокиа оаикоа</span
           >
-        </li>
+        </li> -->
       </ul>
-      <p class="tasks__empty">Здесь пока пусто...</p>
+      <p class="tasks__empty" id="emptyMsg">Здесь пока пусто...</p>
       <button class="tasks__btn btn" disabled>Очистить список</button>
     </div>
+    <script src="./assets/script/script.js"></script>
   </body>
 </html>

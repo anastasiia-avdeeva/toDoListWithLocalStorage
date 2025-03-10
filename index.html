@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/style/normalize.css" />
-    <link rel="stylesheet" href="./assets/style/style.scss" />
+    <link rel="stylesheet" href="./assets/style/style.css" />
     <title>To-Do List</title>
   </head>
   <body>
-    <h1 class="title">To-Do List</h1>
+    <h1 class="title">To Do List</h1>
     <form class="form">
       <input
         type="text"
@@ -17,13 +17,26 @@
         class="form__input"
         placeholder="Введите текст задачи"
       />
-      <button class="form__btn">Добавить задачу</button>
+      <button type="submit" class="form__btn btn">Добавить задачу</button>
     </form>
     <div class="tasks">
-      <h2 class="tasks__subtitle">Список задач</h2>
-      <ul class="tasks__list"></ul>
-      <p class="tasks__empty">Нет задач</p>
-      <button class="tasks__btn" disabled>Очистить список задач</button>
+      <h2 class="tasks__title">Мои задачи:</h2>
+      <ul class="tasks__list">
+        <li class="tasks__task">
+          <span class="tasks__task-checkbox"></span>
+          <span class="tasks__task-description">testtest</span>
+        </li>
+        <li class="tasks__task">
+          <span class="tasks__task-checkbox"></span>
+          <span class="tasks__task-description"
+            >проверить стираньо ао кпоатк оиака коаткоа оипак оиакам оиаокиа
+            оаикоа проверить стираньо ао кпоатк оиака коаткоа оипак оиакам
+            оиаокиа оаикоа</span
+          >
+        </li>
+      </ul>
+      <p class="tasks__empty">Здесь пока пусто...</p>
+      <button class="tasks__btn btn" disabled>Очистить список</button>
     </div>
   </body>
 </html>

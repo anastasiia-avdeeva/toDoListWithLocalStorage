@@ -27,3 +27,92 @@ h6 {
   font-weight: normal;
   margin: 0;
 }
+
+body {
+  margin: 50px auto;
+  width: 90%;
+  min-width: 700px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.btn {
+  width: 350px;
+  height: 90px;
+  color: white;
+  background-color: black;
+}
+
+.btn:disabled {
+  background-color: rgb(183, 182, 182);
+}
+
+.title {
+  align-self: center;
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.form,
+.tasks__empty,
+.tasks__task,
+.btn {
+  font-size: 40px;
+}
+
+.form {
+  align-self: center;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.form__input {
+  width: 600px;
+  height: 90px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.tasks__title {
+  font-size: 45px;
+}
+.tasks__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tasks__task {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.tasks__task-checkbox {
+  flex-shrink: 0;
+  display: inline-block;
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+.tasks__task-description {
+  word-break: break-word;
+}
+.tasks__task-description--checked {
+  text-decoration: line-through;
+}
+.tasks__empty {
+  color: rgb(160, 156, 156);
+  align-self: center;
+}
+.tasks__btn {
+  align-self: flex-end;
+}

@@ -27,3 +27,101 @@ h6 {
   font-weight: normal;
   margin: 0;
 }
+
+body {
+  margin: 50px auto;
+  width: 90%;
+  min-width: 700px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.btn {
+  width: 350px;
+  height: 90px;
+  color: white;
+  background-color: black;
+}
+
+.btn:disabled {
+  background-color: rgb(183, 182, 182);
+}
+
+.title {
+  align-self: center;
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.form,
+.tasks__empty,
+.tasks__task,
+.btn {
+  font-size: 40px;
+}
+
+.form {
+  align-self: center;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__input {
+    width: 600px;
+    height: 90px;
+    padding: 10px;
+    border: 1px solid black;
+  }
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  &__title {
+    font-size: 45px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__task {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__task-checkbox {
+    flex-shrink: 0;
+    display: inline-block;
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+  }
+
+  &__task-description {
+    word-break: break-word;
+  }
+
+  &__task-description--checked {
+    text-decoration: line-through;
+  }
+
+  &__empty {
+    color: rgb(160, 156, 156);
+    align-self: center;
+  }
+
+  &__btn {
+    align-self: flex-end;
+  }
+}

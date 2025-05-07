@@ -55,7 +55,7 @@ function renderAllTasks() {
   }
 }
 
-function disableOrEnableBtn(disable = true) {
+function toggleBtnState(disable = true) {
   disable
     ? taskBtn.setAttribute("disabled", true)
     : taskBtn.removeAttribute("disabled");
@@ -70,7 +70,7 @@ function renderFromLocalStorage() {
 
   makeTaskListVisibile();
   renderAllTasks();
-  disableOrEnableBtn(false);
+  toggleBtnState(false);
 }
 
 document.addEventListener("DOMContentLoaded", renderFromLocalStorage);
@@ -114,7 +114,7 @@ function processInput(evt) {
   if (tasks.length === 0) makeTaskListVisibile();
   const taskObj = createTaskObj(task);
   renderTask(taskObj);
-  disableOrEnableBtn(false);
+  toggleBtnState(false);
   updateLocalStorage(taskObj);
   inputField.value = "";
 }
@@ -140,7 +140,7 @@ function markTaskObjDone(taskDescpription, taskIsDone) {
 
 function toggleTaskState(event) {
   const clickedTaskElem = event.target.closest(
-    `.${taskClassNames.taskClassName}`
+    "." + taskClassNames.taskClassName
   );
   if (!clickedTaskElem) return;
 
@@ -170,7 +170,7 @@ function removeTasks() {
   tasks = [];
   localStorage.removeItem("tasks");
   makeEmptyMsgVisible();
-  disableOrEnableBtn();
+  toggleBtnState();
 }
 
 taskBtn.addEventListener("click", removeTasks);
